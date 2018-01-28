@@ -13,4 +13,10 @@ class Contact: NSObject {
     var name: String?
     var email: String?
     var avatarURL: String?
+    init(dictionary: [String: AnyObject]) {
+        self.id = dictionary["id"] as? String
+        self.name = dictionary["name"] as? String
+        self.email = dictionary["email"] as? String
+        self.avatarURL = dictionary["avatarURL"] as? String
+    }
 }

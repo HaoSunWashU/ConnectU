@@ -29,14 +29,25 @@ extension UIImageView {
             //'dispatch_async' has been replaced by instance method 'DispatchQueue.async(execute:)'
             DispatchQueue.global(qos: .background).async {
                 print("This is run on the background queue")
-                let data = try? Data(contentsOf: url!)
-                let image = UIImage(data: data!)
-                
-                DispatchQueue.main.async {
-                    print("This is run on the main queue, after the previous code in outer block")
-                    imageCache.setObject(image!, forKey: urlString as AnyObject)
-                    self.image = image
+                if let data = try? Data(contentsOf: url!){
+                    let image = UIImage(data: data)
+                    
+                    DispatchQueue.main.async {
+                        print("This is run on the main queue, after the previous code in outer block")
+                        imageCache.setObject(image!, forKey: urlString as AnyObject)
+                        self.image = image
+                    }
                 }
+                else
+                {
+                    DispatchQueue.main.async {
+                        print("This is run on the main queue, after the previous code in outer block")
+                        self.image = UIImage(named: "default-avatar")
+                    }
+                    
+                    
+                }
+                
             }
         }
         else

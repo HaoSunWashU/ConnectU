@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18394B4A1FD527E1005FE493 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18394B491FD527E1005FE493 /* MessageCell.swift */; };
 		186660B11FBFF32E008EBCD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186660B01FBFF32E008EBCD7 /* AppDelegate.swift */; };
 		186660B31FBFF32E008EBCD7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186660B21FBFF32E008EBCD7 /* ViewController.swift */; };
 		186660B81FBFF32E008EBCD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186660B71FBFF32E008EBCD7 /* Assets.xcassets */; };
@@ -29,10 +30,12 @@
 		18EEE0051FC75A1D00DFE732 /* Official-Bear-Symbol-WUSTL.png in Resources */ = {isa = PBXBuildFile; fileRef = 18EEE0041FC75A1900DFE732 /* Official-Bear-Symbol-WUSTL.png */; };
 		71EBD6481FD49ECF00E52EEE /* ChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EBD6471FD49ECE00E52EEE /* ChatMessageCell.swift */; };
 		71EBD64A1FD49F1F00E52EEE /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EBD6491FD49F1F00E52EEE /* Message.swift */; };
+		71EBD64C1FD4C87A00E52EEE /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EBD64B1FD4C87A00E52EEE /* ContactCell.swift */; };
 		F4FAA60C4F3C866D96BE476F /* Pods_ConnectU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40ED6F624E01C8359B746680 /* Pods_ConnectU.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18394B491FD527E1005FE493 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		186660AD1FBFF32E008EBCD7 /* ConnectU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ConnectU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186660B01FBFF32E008EBCD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		186660B21FBFF32E008EBCD7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 		40ED6F624E01C8359B746680 /* Pods_ConnectU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConnectU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EBD6471FD49ECE00E52EEE /* ChatMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageCell.swift; sourceTree = "<group>"; };
 		71EBD6491FD49F1F00E52EEE /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		71EBD64B1FD4C87A00E52EEE /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		A1A68473F38A4F7276524833 /* Pods-ConnectU.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConnectU.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ConnectU/Pods-ConnectU.debug.xcconfig"; sourceTree = "<group>"; };
 		E8F06727EB513379C6EE6D07 /* Pods-ConnectU.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConnectU.release.xcconfig"; path = "Pods/Target Support Files/Pods-ConnectU/Pods-ConnectU.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +110,8 @@
 				186660D41FC00063008EBCD7 /* View */,
 				186660B71FBFF32E008EBCD7 /* Assets.xcassets */,
 				189157951FCBBE0600DC1DE4 /* SwiftyJSON.swift */,
+				186660C61FBFF9CD008EBCD7 /* Main.storyboard */,
+				186660D51FC00138008EBCD7 /* LaunchScreen copy.storyboard */,
 				18EEE0041FC75A1900DFE732 /* Official-Bear-Symbol-WUSTL.png */,
 				186660D11FBFFB6D008EBCD7 /* GoogleService-Info.plist */,
 				186660BC1FBFF32E008EBCD7 /* Info.plist */,
@@ -132,8 +138,8 @@
 		186660D41FC00063008EBCD7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				186660C61FBFF9CD008EBCD7 /* Main.storyboard */,
-				186660D51FC00138008EBCD7 /* LaunchScreen copy.storyboard */,
+				71EBD64B1FD4C87A00E52EEE /* ContactCell.swift */,
+				18394B491FD527E1005FE493 /* MessageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -328,8 +334,10 @@
 			files = (
 				1891578E1FC7674B00DC1DE4 /* ProgressHUD.m in Sources */,
 				18EEE0031FC7529000DFE732 /* TabBarViewController.swift in Sources */,
+				18394B4A1FD527E1005FE493 /* MessageCell.swift in Sources */,
 				186660CC1FBFFA02008EBCD7 /* WelcomeViewController.swift in Sources */,
 				189157961FCBBE0600DC1DE4 /* SwiftyJSON.swift in Sources */,
+				71EBD64C1FD4C87A00E52EEE /* ContactCell.swift in Sources */,
 				18EEE0011FC7517B00DFE732 /* MeViewController.swift in Sources */,
 				186660B31FBFF32E008EBCD7 /* ViewController.swift in Sources */,
 				71EBD6481FD49ECF00E52EEE /* ChatMessageCell.swift in Sources */,

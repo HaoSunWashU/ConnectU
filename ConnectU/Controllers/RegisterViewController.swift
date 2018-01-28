@@ -99,7 +99,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                 //$$$$   successfully authenticated user, write user informaiton to database  $$$$
                 
                 //firstly, create imageName and find storage reference
-                let imageName = NSUUID().uuidString
+                let imageName = uid
                 //let storageRef = Storage.storage().reference().child("Avatar_Images").child("\(imageName).png")
                 let storageRef = Storage.storage().reference().child("Avatar_Images").child("\(imageName).jpg")
                 if let avatarImage = self.Avatar.image, let uploadData = UIImageJPEGRepresentation(avatarImage, 0.1){

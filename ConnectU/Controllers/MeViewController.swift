@@ -12,23 +12,55 @@ import UIKit
 import Firebase
 import SVProgressHUD //processing indicator
 
-class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    let uid: String? = nil
-    let ref: DatabaseReference? = nil
-    
+class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+
+    var email: String?
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
     
     //&&& CONFIRM TO CHANGE PROFILE &&&
     @IBAction func confirmPressed(_ sender: UIButton) {
         //processing indicator appear
         SVProgressHUD.show()
-        
-        //Read new information to the database and storage
-        if uid != nil && ref != nil{
-            
+        let uid = (Auth.auth().currentUser?.uid)!
+        let ref = Database.database().reference()
+        let usersReference = ref.child("users").child(uid)
+        let imageName = uid
+        let storageRef = Storage.storage().reference().child("Avatar_Images").child("\(imageName).jpg")
+        if let avatarImage = self.avatarImageView.image, let uploadData = UIImageJPEGRepresentation(avatarImage, 0.1){
+            storageRef.putData(uploadData, metadata: nil, completion: {(metadata, error) in
+            if error != nil {
+                print(error!)
+                SVProgressHUD.dismiss()
+                let alert = UIAlertController(title: error?.localizedDescription, message: nil, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Yeah, I know, Close this", style: .default, handler: { (action) in }))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            if let avatarImageUrl = metadata?.downloadURL()?.absoluteString{
+                
+                Auth.auth().signIn(withEmail: self.email!, password: self.passwordTextField.text!) { (user, error) in
+                    if error != nil {
+                        print(error!)
+                        SVProgressHUD.dismiss()
+                        let alert = UIAlertController(title: error?.localizedDescription, message: nil, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Yeah, I know, Close this", style: .default, handler: { (action) in }))
+                        
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    } else{ //Vefify User password, reset values in firebase
+                        usersReference.setValue(["name": self.nameTextField.text!, "email": self.email!, "avatarURL": avatarImageUrl])
+                        ProgressHUD.showSuccess("Success")
+                        SVProgressHUD.dismiss()
+                    }
+                }
+            }
+            })
         }
         
     }
@@ -52,6 +84,13 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         confirmButton.layer.masksToBounds = true
         logoutButton.layer.masksToBounds = true
         fetchUserInfo()
+        self.passwordTextField.delegate = self
+        self.nameTextField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 
     func fetchUserInfo() {
@@ -60,11 +99,11 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         let usersReference = ref.child("users").child(uid) // uid is primary key of a user
         usersReference.observeSingleEvent(of: .value) { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
-                let currentUser = Contact()
+                let currentUser = Contact(dictionary: dictionary)
                 //get inforamtion from dictionary
-                currentUser.name = dictionary["name"] as? String
-                currentUser.email = dictionary["email"] as? String
-                currentUser.avatarURL = dictionary["avatarURL"] as? String
+//                currentUser.name = dictionary["name"] as? String
+//                currentUser.email = dictionary["email"] as? String
+//                currentUser.avatarURL = dictionary["avatarURL"] as? String
                 
                 self.updateDisplay(currentUser: currentUser)
             }
@@ -85,6 +124,9 @@ class MeViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         }else {
             avatarImageView.image = UIImage(named: "default-avatar")
         }
+        email = currentUser.email!
+        emailLabel.text = "E-mail: " + currentUser.email!
+        nameTextField.text = currentUser.name!
     }
     
     //select image from photo library
